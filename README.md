@@ -250,3 +250,27 @@ If you lose this file, you lose knowning the state of your infrastructure.
 #### Terraform Directory
 
 `.terraform` directory contains binaries of terraform providers.
+
+#### Creating AWS Buckets
+
+You can have multiple providers in a  `required_providers` block but you cannot have multiple required_providers blocks eg.
+
+`
+terraform {
+  required_providers {
+    random = {
+      source = "hashicorp/random"
+      version = "3.5.1"
+    }
+    aws = {
+      source = "hashicorp/aws"
+      version = "5.19.0"
+    }
+  }
+}
+`
+Make sure that Terraform and the Provider have the same naming convention or adhere to the Providers naming rules when creating S3 buckets
+
+[Bucket naming rules](https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html)
+
+[random_string](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/string)

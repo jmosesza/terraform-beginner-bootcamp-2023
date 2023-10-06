@@ -283,7 +283,7 @@ If you lose this file, you lose knowning the state of your infrastructure.
 
 `.terraform` directory contains binaries of terraform providers.
 
-#### Creating AWS Buckets
+## Creating AWS Buckets
 
 You can have multiple providers in a  `required_providers` block but you cannot have multiple required_providers blocks eg.
 

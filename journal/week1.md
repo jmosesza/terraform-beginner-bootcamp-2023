@@ -1,1 +1,97 @@
 # Terraform Beginner Bootcamp 2023 - Week 1
+
+## Fixing Tags
+
+[How to Delete Local and Remote Tags on Git](https://devconnected.com/how-to-delete-local-and-remote-tags-on-git/)
+
+Local delete a tag
+
+```sh
+git tag -d <tag_name>
+```
+
+Remotely delete tag
+
+```sh
+git push --delete origin tagname
+```
+
+Checkout the commit that you want to retag. You can grab the sha from your GitHub history.
+
+```sh
+git checkout <SHA>
+git tag M.M.P
+git push --tags
+git checkout main
+```
+
+## Root Module Structure
+
+Our root module structure is as follows:
+
+```
+PROJECT_ROOT
+│
+├── main.tf                 # everything else.
+├── variables.tf            # stores the structure of input variables
+├── terraform.tfvars        # the data of variables we want to load into our terraform project
+├── providers.tf            # defined required providers and their configuration
+├── outputs.tf              # stores our outputs
+└── README.md               # required for root modules
+```
+
+[Standard Module Structure](https://developer.hashicorp.com/terraform/language/modules/develop/structure)
+
+## Terraform and Input Variables
+
+### Terraform Cloud Variables
+
+In terraform we can set two kinds of variables:
+- Environment Variables - those you would set in your bash terminal eg. AWS credentials
+- Terraform Variables - those that you would normally set in your tfvars file
+
+We can set Terraform Cloud variables to be sensitive so they are not shown visibly in the UI.
+
+### Loading Terraform Input Variables
+
+[Terraform Input Variables](https://developer.hashicorp.com/terraform/language/values/variables)
+
+### var flag
+We can use the `-var` flag to set an input variable or override a variable in the tfvars file eg. `terraform -var user_ud="my-user_id"`
+
+### var-file flag
+
+The `-var-file` flag is used to pass Input Variable values into Terraform `plan` and `apply` commands using a file that contains the values. This allows you to save the Input Variable values in a file with a `.tfvars` extension that can be checked into source control for you variable environments you need to deploy to / manage.
+
+### terraform.tvfars
+
+This is the default file to load in terraform variables in bulk
+
+### auto.tfvars
+
+A `terraform.tfvars` file is used to assign variable values that are automatically loaded by Terraform during the `apply` or `plan` commands. This file should be created in the root directory of your Terraform project and should contain key-value pairs for your variables as shown below:
+
+```
+variable_name = "variable_value"
+```
+For example:
+
+```
+first_name   = "John"
+last_name    = "Smith"
+```
+
+Furthermore, the convention is to add this `terraform.tfvars` file in your `.gitignore file` so that you don't check it into git. The reason for this is that you would typically define sensitive values in this file. You can also create a `terraform.tfvars.example` file that shows an example of the content of the `terraform.tfvars` file with no sensitive values. This would serve as an example for users using your code.
+
+### order of terraform variables
+
+Terraform loads variables in the following order, with later sources taking precedence over earlier ones:
+
+1. Environment variables
+2. The `terraform.tfvars` file, if present.
+3. The `terraform.tfvars.json` file, if present.
+4. Any `*.auto.tfvars or `*.auto.tfvars.json` files, processed in lexical order of their filenames.
+5. Any `-var` and `-var-file` options on the command line, in the order they are provided. (This includes variables set by a Terraform Cloud workspace.)
+
+
+

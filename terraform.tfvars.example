@@ -1,0 +1,11 @@
+user_uuid="558734ee-f9b7-4fd6-9631-a5d3fe5b8617"
+
+terratowns_endpoint="https://terratowns.cloud/api"
+arcanum = {
+  public_path = "/workspace/terraform-beginner-bootcamp-2023/public/arcanum"
+  content_version = 2 
+}
+payday = {
+  public_path = "/workspace/terraform-beginner-bootcamp-2023/public/payday"
+  content_version = 1 
+}

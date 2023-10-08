@@ -115,6 +115,54 @@ If someone goes and deletes or modifies cloud resource manually through ClickOps
 
 If we run `Terraform plan`` it will attempt to put our infrstraucture back into the expected state fixing Configuration Drift
 
+## Fix using Terraform Refresh
+
+```sh
+terraform apply -refresh-only -auto-approve
+```
+
+## Terraform Modules
+
+### Terraform Module Structure
+
+It is recommended to place modules in a `modules` directory when locally developing modules but you can name it whatever you like.
+
+### Passing Input Variables
+
+We can pass input variables to our module.
+
+The module has to declare these terraform variables in its own variables.tf
+
+```tf
+module "terrahome_aws" {
+  source = "./modules/terrahome_aws"
+  user_uuid = var.user_uuid
+  bucket_name = var.bucket_name
+}
+```
+
+### Modules Sources
+
+Using the source, we can import the module from various places eg:
+
+- locally
+- Github
+- Terraform Registry
+
+```tf
+module "terrahome_aws" {
+  source = "./modules/terrahome_aws"
+}
+```
+
+
+[Modules Sources](https://developer.hashicorp.com/terraform/language/modules/sources)
+
+## Considerations when using ChatGPT to write Terraform
+
+LLMs such as ChatGPT may not be trained on the latest documentation or information about Terraform.
+
+It may likely produce older examples, that could be deprecated. Often affecting providers.
 
 
 

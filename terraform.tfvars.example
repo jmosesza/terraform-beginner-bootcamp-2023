@@ -1,5 +1,7 @@
 user_uuid="558734ee-f9b7-4fd6-9631-a5d3fe5b8617"
 bucket_name="re41x2dzyn2lrx5w9ch7dqlilpe0omr8"
+index_html_filepath="/workspace/terraform-beginner-bootcamp-2023/public/index.html"
+error_html_filepath="/workspace/terraform-beginner-bootcamp-2023/public/error.html"
 
 #terratowns_endpoint="https://terratowns.cloud/api"
 #arcanum = {

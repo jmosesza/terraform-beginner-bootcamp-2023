@@ -51,4 +51,9 @@ variable "content_version" {
 variable "assets_path" {
   description = "path to public/assets which stores images."
   type = string
+
+validation {
+    condition = can("fileexists", var.assets_path)
+    error_message = "The specified assets_path does not exist."
+  }
 }

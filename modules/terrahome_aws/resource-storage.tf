@@ -55,7 +55,8 @@ resource "aws_s3_object" "upload_assets" {
   bucket = aws_s3_bucket.website_bucket.bucket
   key    = "assets/${each.key}"
   source = "${var.assets_path}/${each.key}"
-  etag = filemd5("${var.assets_path}/${each.key}")
+  #etag = filemd5("${var.assets_path}/${each.key}")
+  etag = filemd5("${var.assets_path}/index.html")
   lifecycle {
     replace_triggered_by = [terraform_data.content_version.output]
     ignore_changes = [etag]
@@ -75,7 +76,8 @@ resource "aws_s3_object" "error_html" {
   # etag = "${md5(file("path/to/file"))}"
   #etag = filemd5("${var.public_path}/error.html")
   #etag = filemd5("${path.root}/public/error.html")
-  etag = filemd5(var.error_html_filepath)
+  #etag = filemd5(var.error_html_filepath)
+  etag = filemd5("${var.assets_path}/error.html")
 }
 
 resource "aws_s3_bucket_policy" "bucket_policy" {

@@ -230,7 +230,7 @@ output "account_id" {
 
 ## Working with JSON
 
-We use the jsonencode to create the json policy inline in the hcl.
+We use the `jsonencode`` to create the json policy inline in the hcl.
 
 ```tf
 > jsonencode({"hello"="world"})
@@ -300,3 +300,29 @@ resource "aws_instance" "web" {
 ```
 
 [remote-exec Provisioner](https://developer.hashicorp.com/terraform/language/resources/provisioners/remote-exec)
+
+## For Each Expressions
+
+For each allows us to enumerate over complex data types
+
+```sh
+[for s in var.list : upper(s)]
+```
+
+This is mostly useful when you are creating multiple cloud resources and you want to reduce the amount of repetitive terraform code.
+
+[For Each Expressions](https://developer.hashicorp.com/terraform/language/expressions/for)
+
+## Resources 
+- [Standard Module Structure](https://developer.hashicorp.com/terraform/language/modules/develop/structure)
+- [Input Variables](https://developer.hashicorp.com/terraform/language/values/variables)
+- [Import](https://developer.hashicorp.com/terraform/cli/import)
+- [S3 bucket import](registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket#import)
+- [Terraform Import](registry.terraform.io/providers/hashicorp/random/latest/docs/resources/string#import)
+- [Modules](developer.hashicorp.com/terraform/language/modules/develop/structure)
+- [Module sources](developer.hashicorp.com/terraform/language/modules/sources)
+- [Resource: aws_s3_bucket_website_configuration](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_website_configuration)
+- [Data Sources](https://developer.hashicorp.com/terraform/language/data-sources)
+- [Data Source: aws_caller_identity](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity)
+- [Locals](https://developer.hashicorp.com/terraform/language/values/locals)
+- [The for_each Meta-Argument](https://developer.hashicorp.com/terraform/language/meta-arguments/for_each)

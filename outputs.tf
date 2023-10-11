@@ -12,6 +12,6 @@ output "cloudfront_url" {
   value = module.terrahome_aws.cloudfront_url
 }
 
-output "cloudfront_distribution_id" {
-  value = module.terrahome_aws.cloudfront_distribution_id
-}
+#output "cloudfront_distribution_id" {
+#  value = module.terrahome_aws.cloudfront_distribution_id
+#}

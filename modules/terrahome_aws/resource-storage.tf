@@ -4,7 +4,7 @@ resource "aws_s3_bucket" "website_bucket" {
   # Bucket Naming Rules
   #https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html?icmpid=docs_amazons3_console
   # we want to assign a random bucket name
-  bucket = var.bucket_name
+  #bucket = var.bucket_name
 
   tags = {
     UserUuid = var.user_uuid
@@ -16,7 +16,7 @@ resource "aws_s3_bucket" "website_bucket" {
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_website_configuration
 
 resource "aws_s3_bucket_website_configuration" "website_configuration" {
-  bucket = aws_s3_bucket.website_bucket.bucket # Change to a unique name for your bucket
+  bucket = aws_s3_bucket.website_bucket.bucket
 
  index_document {
     suffix = "index.html"

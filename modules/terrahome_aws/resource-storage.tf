@@ -54,7 +54,7 @@ resource "aws_s3_object" "error_html" {
   bucket = aws_s3_bucket.website_bucket.bucket
   key    = "error.html"
   #source = "${var.public_path}/error.html"
-  source = ""${path.root}/public/error.html"
+  source = "${path.root}/public/error.html"
   #source = var.error_html_filepath
   #source = "${path.root}/public/error.html"
   content_type = "text/html"

@@ -16,7 +16,8 @@ resource "aws_s3_bucket" "website_bucket" {
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_website_configuration
 
 resource "aws_s3_bucket_website_configuration" "website_configuration" {
-  bucket = aws_s3_bucket.website_bucket.bucket
+  #bucket = aws_s3_bucket.website_bucket.bucket
+  bucket = var.bucket_name
 
  index_document {
     suffix = "index.html"
@@ -30,11 +31,12 @@ resource "aws_s3_bucket_website_configuration" "website_configuration" {
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_object
 
 resource "aws_s3_object" "index_html" {
-  bucket = aws_s3_bucket.website_bucket.bucket
+  #bucket = aws_s3_bucket.website_bucket.bucket
+  bucket = var.bucket_name
   key    = "index.html"
-  #source = var.index_html_filepath
+  source = var.index_html_filepath
   #source = "${var.public_path}/index.html"
-  source = "${path.root}/public/index.html"
+  #source = "${path.root}/public/index.html"
   content_type = "text/html"
 
   # The filemd5() function is available in Terraform 0.11.12 and later
@@ -51,11 +53,12 @@ resource "aws_s3_object" "index_html" {
 }
 
 resource "aws_s3_object" "error_html" {
-  bucket = aws_s3_bucket.website_bucket.bucket
+  #bucket = aws_s3_bucket.website_bucket.bucket
+  bucket = var.bucket_name
   key    = "error.html"
   #source = "${var.public_path}/error.html"
-  source = "${path.root}/public/error.html"
-  #source = var.error_html_filepath
+  #source = "${path.root}/public/error.html"
+  source = var.error_html_filepath
   #source = "${path.root}/public/error.html"
   content_type = "text/html"
 
@@ -74,7 +77,8 @@ resource "aws_s3_object" "error_html" {
 }
 
 resource "aws_s3_bucket_policy" "bucket_policy" {
-  bucket = aws_s3_bucket.website_bucket.bucket
+  #bucket = aws_s3_bucket.website_bucket.bucket
+  bucket = var.bucket_name
   #policy = data.aws_iam_policy_document.allow_access_from_another_account.json
   policy = jsonencode({
     "Version" = "2012-10-17",
@@ -105,10 +109,12 @@ resource "aws_s3_object" "upload_assets" {
   #for_each = fileset("${path.root}/public/arcanum/assets","*.{jpg,png,gif}")
   #for_each = fileset("${path.root}/public/assets","*.{jpg,png,gif}")
   for_each = fileset(var.assets_path,"*.{jpg,png,gif}")
-  bucket = aws_s3_bucket.website_bucket.bucket
+  #bucket = aws_s3_bucket.website_bucket.bucket
+  bucket = var.bucket_name
   key    = "assets/${each.key}"
   source = "${var.assets_path}/${each.key}"
   #source = "${path.root}/public/assets/${each.key}"
+  content_type = "image/jpg"
   etag = filemd5("${var.assets_path}/${each.key}")
   #etag = filemd5("${path.root}/public/assets/${each.key}")
   #etag = filemd5("${var.assets_path}/index.html")

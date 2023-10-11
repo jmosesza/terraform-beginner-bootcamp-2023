@@ -16,7 +16,7 @@ resource "aws_s3_bucket" "website_bucket" {
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_website_configuration
 
 resource "aws_s3_bucket_website_configuration" "website_configuration" {
-  bucket = aws_s3_bucket.website_bucket.bucket # Change to a unique name for your bucket
+  bucket = aws_s3_bucket.website_bucket.bucket
 
  index_document {
     suffix = "index.html"
@@ -34,6 +34,7 @@ resource "aws_s3_object" "index_html" {
   key    = "index.html"
   source = var.index_html_filepath
   #source = "${var.public_path}/index.html"
+  #source = "${path.root}/public/index.html"
   content_type = "text/html"
 
   # The filemd5() function is available in Terraform 0.11.12 and later
@@ -42,6 +43,7 @@ resource "aws_s3_object" "index_html" {
   #etag = filemd5("${var.public_path}/index.html")
   etag = filemd5(var.index_html_filepath)
   #etag = filemd5("${var.assets_path}/index.html")
+  #etag = filemd5("${path.root}/public/index.html")
   lifecycle {
     replace_triggered_by = [terraform_data.content_version.output]
     ignore_changes = [etag]
@@ -51,11 +53,14 @@ resource "aws_s3_object" "index_html" {
 resource "aws_s3_object" "upload_assets" {
   #for_each = fileset("${var.public_path}/assets","*.{jpg,png,gif}")
   #for_each = fileset("${path.root}/public/arcanum/assets","*.{jpg,png,gif}")
-  for_each = fileset(var.assets_path,"*.{jpg,png,gif}")
+  for_each = fileset("${path.root}/public/assets","*.{jpg,png,gif}")
+  #for_each = fileset(var.assets_path,"*.{jpg,png,gif}")
   bucket = aws_s3_bucket.website_bucket.bucket
   key    = "assets/${each.key}"
-  source = "${var.assets_path}/${each.key}"
-  etag = filemd5("${var.assets_path}/${each.key}")
+  #source = "${var.assets_path}/${each.key}"
+  source = "${path.root}/public/assets/${each.key}"
+  #etag = filemd5("${var.assets_path}/${each.key}")
+  etag = filemd5("${path.root}/public/assets/${each.key}")
   #etag = filemd5("${var.assets_path}/index.html")
   lifecycle {
     replace_triggered_by = [terraform_data.content_version.output]
@@ -69,6 +74,7 @@ resource "aws_s3_object" "error_html" {
   #source = "${var.public_path}/error.html"
   #source = ""${path.root}/public/error.html"
   source = var.error_html_filepath
+  #source = "${path.root}/public/error.html"
   content_type = "text/html"
 
   # The filemd5() function is available in Terraform 0.11.12 and later
@@ -77,6 +83,7 @@ resource "aws_s3_object" "error_html" {
   #etag = filemd5("${var.public_path}/error.html")
   #etag = filemd5("${path.root}/public/error.html")
   etag = filemd5(var.error_html_filepath)
+  #etag = filemd5("${path.root}/public/error.html")
   #etag = filemd5("${var.assets_path}/error.html")
 }
 

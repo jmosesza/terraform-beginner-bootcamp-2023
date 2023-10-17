@@ -104,13 +104,17 @@ resource "aws_s3_object" "upload_assets" {
   #for_each = fileset("${var.public_path}/assets","*.{jpg,png,gif}")
   #for_each = fileset("${path.root}/public/arcanum/assets","*.{jpg,png,gif}")
   #for_each = fileset("${path.root}/public/assets","*.{jpg,png,gif}")
-  for_each = fileset(var.assets_path,"*.{jpg,png,gif}")
+  #for_each = fileset(var.assets_path,"*.{jpg,png,gif}")
+  for_each = fileset("${var.root_path}/public/assets","*.{jpg,png,gif}")
   bucket = aws_s3_bucket.website_bucket.bucket
-  key    = "assets/${each.key}"
-  source = "${var.assets_path}/${each.key}"
+  #key    = "assets/${each.key}"
+  key    = "${each.key}"
+  #source = "${var.assets_path}/${each.key}"
+  source = "${var.root_path}/public/assets/${each.key}"
   #source = "${path.root}/public/assets/${each.key}"
   content_type = "image/jpg"
-  etag = filemd5("${var.assets_path}/${each.key}")
+  #etag = filemd5("${var.assets_path}/${each.key}")
+  etag = filemd5("${var.root_path}/public/assets/${each.key}")
   #etag = filemd5("${path.root}/public/assets/${each.key}")
   #etag = filemd5("${var.assets_path}/index.html")
   lifecycle {

@@ -10,7 +10,6 @@ output "website_endpoint" {
 output "cloudfront_url" {
   description = "The CloudFront distribution domain name"
   value = aws_cloudfront_distribution.s3_distribution.domain_name
- 
  }
 
 #output "cloudfront_distribution_id" {

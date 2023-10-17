@@ -58,3 +58,9 @@ variable "assets_path" {
 #    error_message = "The specified assets_path does not exist."
 #  }
 }
+
+
+variable "root_path" {
+  type        = string
+  description = "root_path"
+}

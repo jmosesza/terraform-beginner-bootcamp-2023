@@ -26,4 +26,5 @@ module "terrahome_aws" {
   #error_html_filepath = "${path.root}${var.error_html_filepath}"
   assets_path = var.assets_path
   content_version = var.content_version
+  root_path = var.root_path
 }

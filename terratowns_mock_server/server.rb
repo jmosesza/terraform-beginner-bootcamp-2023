@@ -12,8 +12,8 @@ $home = {}
 # This will represent our Home resources as a ruby object.
 class Home
   # ActiveModel is part of Ruby on Rails.
-  # it is used as an ORM. It has a module within
-  # ActiveModel that provides validations.
+  # it is used as an ORM. 
+  # It has a module within ActiveModel that provides validations.
   # The production Terratowns server is rails and uses
   # very similar and in most cases identical validation
   # https://guides.rubyonrails.org/active_model_basics.html
@@ -22,7 +22,7 @@ class Home
 
   # create some virtual attributes to stored on this object
   # This will set a getter and setter
-  # eg. 
+  # examples:
   # home = new Home()
   # home.town = 'hello' # setter
   # home.town() # getter
@@ -33,8 +33,10 @@ class Home
     'cooker-cove',
     'video-valley',
     'the-nomad-pad',
-    'gamers-grotto'
+    'gamers-grotto',
+    'missingo',
   ] }
+
   # visible to all users
   validates :name, presence: true
   # visible to all users
@@ -101,7 +103,8 @@ class TerraTownsMockServer < Sinatra::Base
       error 401, "a1002 Failed to authenicate, bearer token invalid and/or teacherseat_user_uuid invalid"
     end
 
-    # the code and the user_uuid should be matching for user
+    # the code and the user_uuid should be matching for the user
+    # in rails: User.find_by access_code: code, user_uuid: user_uuid
     unless code == x_access_code && params['user_uuid'] == x_user_uuid
       error 401, "a1003 Failed to authenicate, bearer token invalid and/or teacherseat_user_uuid invalid"
     end
@@ -116,7 +119,7 @@ class TerraTownsMockServer < Sinatra::Base
 
     # a begin/resurce is a try/catch, if an error occurs, result it.
     begin
-      # Sinatra does not automatically part json bodys as params
+      # Sinatra does not automatically parse json body as params
       # like rails so we need to manuall parse it.
       payload = JSON.parse(request.body.read)
     rescue JSON::ParserError
@@ -147,10 +150,10 @@ class TerraTownsMockServer < Sinatra::Base
     home.domain_name = domain_name
     home.content_version = content_version
     
-    # ensure our validation checks pass otherwise
-    # return the errors
+    # ensure our validation checks pass 
+    # otherwise return the error
     unless home.valid?
-      # return the errors message back as json
+      # return the error messages back as json
       error 422, home.errors.messages.to_json
     end
 
@@ -190,7 +193,7 @@ class TerraTownsMockServer < Sinatra::Base
   end
 
   # UPDATE
-  # very similar to create action
+  # very similar to the CREATE action
   put '/api/u/:user_uuid/homes/:uuid' do
     ensure_correct_headings
     find_user_by_bearer_token
@@ -205,6 +208,7 @@ class TerraTownsMockServer < Sinatra::Base
     # Validate payload data
     name = payload["name"]
     description = payload["description"]
+    # domain_name = payload["domain_name"]
     content_version = payload["content_version"]
 
     unless params[:uuid] == $home[:uuid]
@@ -216,7 +220,9 @@ class TerraTownsMockServer < Sinatra::Base
     home.domain_name = $home[:domain_name]
     home.name = name
     home.description = description
+    # home.domain_name = domain_name
     home.content_version = content_version
+    # binding.pry
 
     unless home.valid?
       error 422, home.errors.messages.to_json

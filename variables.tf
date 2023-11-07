@@ -21,3 +21,8 @@ variable "content_version" {
 variable "assets_path" {
     type        = string
 }
+
+variable "root_path" {
+  type        = string
+  description = "root_path"
+}

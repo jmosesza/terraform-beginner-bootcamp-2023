@@ -4,7 +4,7 @@ resource "aws_s3_bucket" "website_bucket" {
   # Bucket Naming Rules
   #https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html?icmpid=docs_amazons3_console
   # we want to assign a random bucket name
-  #bucket = var.bucket_name
+  bucket = var.bucket_name
 
   tags = {
     UserUuid = var.user_uuid
@@ -45,26 +45,8 @@ resource "aws_s3_object" "index_html" {
   #etag = filemd5("${var.assets_path}/index.html")
   #etag = filemd5("${path.root}/public/index.html")
   lifecycle {
-    replace_triggered_by = [terraform_data.content_version.output]
-    ignore_changes = [etag]
-  }
-}
-
-resource "aws_s3_object" "upload_assets" {
-  #for_each = fileset("${var.public_path}/assets","*.{jpg,png,gif}")
-  #for_each = fileset("${path.root}/public/arcanum/assets","*.{jpg,png,gif}")
-  for_each = fileset("${path.root}/public/assets","*.{jpg,png,gif}")
-  #for_each = fileset(var.assets_path,"*.{jpg,png,gif}")
-  bucket = aws_s3_bucket.website_bucket.bucket
-  key    = "assets/${each.key}"
-  #source = "${var.assets_path}/${each.key}"
-  source = "${path.root}/public/assets/${each.key}"
-  #etag = filemd5("${var.assets_path}/${each.key}")
-  etag = filemd5("${path.root}/public/assets/${each.key}")
-  #etag = filemd5("${var.assets_path}/index.html")
-  lifecycle {
-    replace_triggered_by = [terraform_data.content_version.output]
-    ignore_changes = [etag]
+    replace_triggered_by = [ terraform_data.content_version.output ]
+    ignore_changes = [ etag ]
   }
 }
 
@@ -72,7 +54,7 @@ resource "aws_s3_object" "error_html" {
   bucket = aws_s3_bucket.website_bucket.bucket
   key    = "error.html"
   #source = "${var.public_path}/error.html"
-  #source = ""${path.root}/public/error.html"
+  #source = "${path.root}/public/error.html"
   source = var.error_html_filepath
   #source = "${path.root}/public/error.html"
   content_type = "text/html"
@@ -85,6 +67,10 @@ resource "aws_s3_object" "error_html" {
   etag = filemd5(var.error_html_filepath)
   #etag = filemd5("${path.root}/public/error.html")
   #etag = filemd5("${var.assets_path}/error.html")
+  lifecycle {
+    replace_triggered_by = [ terraform_data.content_version.output ]
+    ignore_changes = [ etag ]
+  }
 }
 
 resource "aws_s3_bucket_policy" "bucket_policy" {
@@ -114,3 +100,25 @@ resource "terraform_data" "content_version" {
   input = var.content_version
 }
 
+resource "aws_s3_object" "upload_assets" {
+  #for_each = fileset("${var.public_path}/assets","*.{jpg,png,gif}")
+  #for_each = fileset("${path.root}/public/arcanum/assets","*.{jpg,png,gif}")
+  #for_each = fileset("${path.root}/public/assets","*.{jpg,png,gif}")
+  for_each = fileset(var.assets_path,"*.{jpg,png,gif}")
+  #for_each = fileset("${var.root_path}/public/assets","*.{jpg,png,gif}")
+  bucket = aws_s3_bucket.website_bucket.bucket
+  key    = "assets/${each.key}"
+  #key    = "${each.key}"
+  source = "${var.assets_path}/${each.key}"
+  #source = "${var.root_path}/public/assets/${each.key}"
+  #source = "${path.root}/public/assets/${each.key}"
+  content_type = "image/jpg"
+  etag = filemd5("${var.assets_path}/${each.key}")
+  #etag = filemd5("${var.root_path}/public/assets/${each.key}")
+  #etag = filemd5("${path.root}/public/assets/${each.key}")
+  #etag = filemd5("${var.assets_path}/index.html")
+  lifecycle {
+    replace_triggered_by = [ terraform_data.content_version.output ]
+    ignore_changes = [ etag ]
+  }
+}

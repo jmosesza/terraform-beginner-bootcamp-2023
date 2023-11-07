@@ -53,11 +53,14 @@ variable "assets_path" {
   type = string
 
 #validation {
-<<<<<<< HEAD
 #    condition     = can(directory("${var.assets_path}"))
-=======
 #    condition = can("fileexists", var.assets_path)
->>>>>>> 5f1e18d192eb6a866da1e2a56ec67f798763dcaf
 #    error_message = "The specified assets_path does not exist."
 #  }
+}
+
+
+variable "root_path" {
+  type        = string
+  description = "root_path"
 }

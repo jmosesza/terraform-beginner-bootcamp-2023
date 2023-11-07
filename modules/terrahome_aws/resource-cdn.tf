@@ -1,11 +1,8 @@
 resource "aws_cloudfront_origin_access_control" "default" {
-  name   = "OAC ${aws_s3_bucket.website_bucket.bucket}"
-  #name    = "OAC ${var.bucket_name}"
-<<<<<<< HEAD
-  description  = "Origin Access Controls for Static Website Hosting ${aws_s3_bucket.website_bucket.bucket}}"
-=======
-  description  = "Origin Access Controls for Static Website Hosting $aws_s3_bucket.website_bucket.bucket}"
->>>>>>> 5f1e18d192eb6a866da1e2a56ec67f798763dcaf
+  #name   = "OAC ${aws_s3_bucket.website_bucket.bucket}"
+  name    = "OAC ${var.bucket_name}"
+  #description  = "Origin Access Controls for Static Website Hosting ${aws_s3_bucket.website_bucket.bucket}}"
+  description  = "Origin Access Controls for Static Website Hosting ${var.bucket_name}"
   origin_access_control_origin_type = "s3"
   signing_behavior  = "always"
   signing_protocol  = "sigv4"
@@ -67,6 +64,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
 
   tags = {
     UserUuid = var.user_uuid
+    
   }
 
   viewer_certificate {

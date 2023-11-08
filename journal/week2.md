@@ -40,3 +40,24 @@ It is great for mock or development servers or for very simple projects.
 You can create a web-server in a single file.
 
 https://sinatrarb.com/
+
+## Terratowns Mock Server
+
+### Running the web server
+
+We can run the web server by executing the following commands:
+
+```rb
+bundle install
+bundle exec ruby server.rb
+```
+
+All of the code for our server is stored in the `server.rb` file.
+
+## CRUD
+
+Terraform Provider resources utilize CRUD.
+
+CRUD stands for Create, Read Update, and Delete
+
+https://en.wikipedia.org/wiki/Create,_read,_update_and_delete

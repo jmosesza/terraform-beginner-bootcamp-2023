@@ -26,24 +26,23 @@ provider "terratowns" {
   #user_uuid = var.teacherseat_user_uuid
   #token = var.terratowns_access_token
   #endpoint = "http://localhost:4567"
-  endpoint = "http://localhost:4567/api"
-  user_uuid="e328f4ab-b99f-421c-84c9-4ccea042c7d1" 
-  token="9b49b3fb-b8e9-483c-b703-97ba88eef8e0"
+  endpoint = var.terratowns_endpoint
+  user_uuid = var.teacherseat_user_uuid
+  token =var.terratowns_access_token
 }
 
-
-#module "terrahome_aws" {
-#  source = "./modules/terrahome_aws"
-#  user_uuid = var.user_uuid
-#  bucket_name = var.bucket_name
-#  index_html_filepath = var.index_html_filepath
-#  error_html_filepath = var.error_html_filepath
+module "terrahome_aws" {
+  source = "./modules/terrahome_aws"
+  user_uuid = var.teacherseat_user_uuid
+  bucket_name = var.bucket_name
+  index_html_filepath = var.index_html_filepath
+  error_html_filepath = var.error_html_filepath
   #index_html_filepath = "${path.root}${var.index_html_filepath}"
   #error_html_filepath = "${path.root}${var.error_html_filepath}"
-# assets_path = var.assets_path
-#  content_version = var.content_version
-#  root_path = var.root_path
-#}
+  assets_path = var.assets_path
+  content_version = var.content_version
+  root_path = var.root_path
+}
 
 resource "terratowns_home" "home" {
   name = "How to play Arcanum in 2023!"
@@ -56,8 +55,8 @@ DESCRIPTION
   #domain_name = module.home_arcanum_hosting.domain_name
   #town = "missingo"
   #content_version = var.arcanum.content_version
-  #domain_name = module.terrahouse_aws.cloudfront_url
-  domain_name = "3fdq3gz.cloudfront.net"
-  town = "gamers-grotto"
+  domain_name = module.terrahome_aws.cloudfront_url
+  #domain_name = "3fdq3gz.cloudfront.net"
+  town = "missingo"
   content_version = 1
 }

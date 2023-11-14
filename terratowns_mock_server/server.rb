@@ -29,12 +29,12 @@ class Home
   attr_accessor :town, :name, :description, :domain_name, :content_version
 
   validates :town, presence: true, inclusion: { in: [
+    'missingo',
     'melomaniac-mansion',
     'cooker-cove',
     'video-valley',
     'the-nomad-pad',
-    'gamers-grotto',
-    'missingo',
+    'gamers-grotto'
   ] }
 
   # visible to all users

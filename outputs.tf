@@ -8,10 +8,16 @@ output "s3_website_endpoint" {
   value = module.terrahome_aws.website_endpoint
 }
 
+#output "cloudfront_url" {
+#  description = "The CloudFront Distribution Domain Name"
+#  value = module.terrahome_aws.cloudfront_url
+#}
+
 output "cloudfront_url" {
   description = "The CloudFront Distribution Domain Name"
-  value = module.terrahome_aws.cloudfront_url
+  value = module.terrahome_aws.domain_name
 }
+
 
 #output "cloudfront_distribution_id" {
 #  value = module.terrahome_aws.cloudfront_distribution_id

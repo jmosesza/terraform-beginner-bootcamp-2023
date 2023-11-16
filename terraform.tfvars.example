@@ -1,13 +1,20 @@
 terratowns_endpoint="https://terratowns.cloud/api"
-bucket_name="9wb741vwa0cx2tvqar53tbsnk3l00xx7"
-index_html_filepath="/workspace/terraform-beginner-bootcamp-2023/public/index.html"
-error_html_filepath="/workspace/terraform-beginner-bootcamp-2023/public/error.html"
+#bucket_name="9wb741vwa0cx2tvqar53tbsnk3l00xx7"
+#index_html_filepath="/workspace/terraform-beginner-bootcamp-2023/public/index.html"
+#error_html_filepath="/workspace/terraform-beginner-bootcamp-2023/public/error.html"
 #index_html_filepath="/public/index.html"
 #error_html_filepath="/public/error.html"
-assets_path="/workspace/terraform-beginner-bootcamp-2023/public/assets/"
-root_path = "/workspace/terraform-beginner-bootcamp-2023"
-content_version=1
-
+#assets_path="/workspace/terraform-beginner-bootcamp-2023/public/assets/"
+#root_path = "/workspace/terraform-beginner-bootcamp-2023"
+#content_version=1
+arcanum = {
+  public_path = "/workspace/terraform-beginner-bootcamp-2023/public/arcanum"
+  content_version = 2 
+}
+scblacklist = {
+  public_path = "/workspace/terraform-beginner-bootcamp-2023/public/scblacklist"
+  content_version = 1 
+}
 #terratowns_endpoint="https://terratowns.cloud/api"
 #arcanum = {
 #  public_path = "/workspace/terraform-beginner-bootcamp-2023/public/arcanum"

@@ -7,36 +7,36 @@ variable "user_uuid" {
   }
 }
 
-variable "bucket_name" {
-  description = "The name of the S3 bucket"
-  type        = string
+#variable "bucket_name" {
+#  description = "The name of the S3 bucket"
+#  type        = string
 
-  validation {
-    condition     = (
-      length(var.bucket_name) >= 3 && length(var.bucket_name) <= 63 && 
-      can(regex("^[a-z0-9][a-z0-9-.]*[a-z0-9]$", var.bucket_name))
-    )
-    error_message = "The bucket name must be between 3 and 63 characters, start and end with a lowercase letter or number, and can contain only lowercase letters, numbers, hyphens, and dots."
-  }
-}
+#  validation {
+#    condition     = (
+#      length(var.bucket_name) >= 3 && length(var.bucket_name) <= 63 && 
+#      can(regex("^[a-z0-9][a-z0-9-.]*[a-z0-9]$", var.bucket_name))
+#    )
+#    error_message = "The bucket name must be between 3 and 63 characters, start and end with a lowercase letter or number, and can contain only lowercase letters, numbers, hyphens, and dots."
+#  }
+#}
 
-variable "index_html_filepath" {
-  description = "Filepath to the index.html file"
-  type        = string
-  validation {
-    condition     = fileexists(var.index_html_filepath)
-    error_message = "The specified index_html_filepath does not exist or is not a valid file path."
-  }
-}
+#variable "index_html_filepath" {
+#  description = "Filepath to the index.html file"
+#  type        = string
+#  validation {
+#    condition     = fileexists(var.index_html_filepath)
+#    error_message = "The specified index_html_filepath does not exist or is not a valid file path."
+#  }
+#}
 
-variable "error_html_filepath" {
-  description = "Filepath to the error.html file"
-  type        = string
-  validation {
-    condition     = fileexists(var.error_html_filepath)
-    error_message = "The specified error_html_filepath does not exist or is not a valid file path."
-  }
-}
+#variable "error_html_filepath" {
+#  description = "Filepath to the error.html file"
+#  type        = string
+#  validation {
+#    condition     = fileexists(var.error_html_filepath)
+#    error_message = "The specified error_html_filepath does not exist or is not a valid file path."
+#  }
+#}
 
 variable "content_version" {
   description = "The content version. Should be a positive integer starting at 1."
@@ -48,19 +48,24 @@ variable "content_version" {
   }
 }
 
-variable "assets_path" {
-  description = "path to public/assets which stores images."
-  type = string
+#variable "assets_path" {
+#  description = "path to public/assets which stores images."
+#  type = string
 
 #validation {
 #    condition     = can(directory("${var.assets_path}"))
 #    condition = can("fileexists", var.assets_path)
 #    error_message = "The specified assets_path does not exist."
 #  }
-}
+#}
 
 
-variable "root_path" {
+#variable "root_path" {
+#  type        = string
+#  description = "root_path"
+#}
+
+variable "public_path" {
+  description = "The file path for the public directory"
   type        = string
-  description = "root_path"
-}
+}  

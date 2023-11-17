@@ -1,5 +1,15 @@
 # Terraform Beginner Bootcamp 2023 - Week 2
 
+  * [Working with Ruby](#working-with-ruby)
+    + [Bundler](#bundler)
+      - [Install Gems](#install-gems)
+      - [Executing ruby scripts in the context of bundler](#executing-ruby-scripts-in-the-context-of-bundler)
+    + [Sinatra](#sinatra)
+  * [Terratowns Mock Server](#terratowns-mock-server)
+    + [Running the web server](#running-the-web-server)
+    + [CRUD](#crud)
+  * [Resources](#resources)
+
 ## Working with Ruby
 
 ### Bundler
@@ -54,10 +64,16 @@ bundle exec ruby server.rb
 
 All of the code for our server is stored in the `server.rb` file.
 
-## CRUD
+### CRUD
 
 Terraform Provider resources utilize CRUD.
 
 CRUD stands for Create, Read Update, and Delete
 
 https://en.wikipedia.org/wiki/Create,_read,_update_and_delete
+
+## Resources 
+- [Ruby gems](https://rubygems.org)
+- [Sinatra server](https://sinatrarb.com/)
+- [Ruby on Rails - Active Model](https://guides.rubyonrails.org/active_model_basics.html)
+- [Create, read, update and delete](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete)

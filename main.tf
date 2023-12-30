@@ -86,7 +86,7 @@ In the game, players may run, crouch, jump over obstacles, and move the camera.
 Action and stealth are combined in this game, and players may employ a variety of strategies to accomplish goals and vanquish adversaries. 
 DESCRIPTION
   domain_name = module.home_scblacklist_hosting.domain_name
-  town = "missingo"
+  town = "gamers-grotto"
   #content_version = 1
   content_version = var.scblacklist.content_version
 }
